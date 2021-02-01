@@ -17,6 +17,20 @@ public class StatsService {
         return average;
     }
 
+    public long calculateMaxPurchaseMonth(long[] purchases) {
+        long maxPurchases = purchases[0];
+        long monthMaxPurchases = 1;
+        int currentMonth = 0;
+        for (long purchase : purchases) {
+            currentMonth = currentMonth + 1;
+            if (maxPurchases <= purchase) {
+                maxPurchases = purchase;
+                monthMaxPurchases = currentMonth;
+            }
+        }
+        return monthMaxPurchases;
+    }
+
     public long calculateMinPurchaseMonth(long[] purchases) {
         long minPurchases = purchases[0];
         long monthMinPurchases = 1;
@@ -33,8 +47,9 @@ public class StatsService {
 
     public long calculateNumberOfMonthsWithLowPurchases(long[] purchases) {
         long numberOfMonthsWithLowPurchases = 0;
+        long average = calculateAverage(purchases);
         for (long purchase : purchases) {
-            if (purchase < calculateAverage(purchases)) {
+            if (purchase < average) {
                 numberOfMonthsWithLowPurchases = numberOfMonthsWithLowPurchases + 1;
             }
         }
@@ -43,8 +58,9 @@ public class StatsService {
 
     public long calculateNumberOfMonthsWithHighPurchases(long[] purchases) {
         long numberOfMonthsWithLowPurchases = 0;
+        long average = calculateAverage(purchases);
         for (long purchase : purchases) {
-            if (purchase > calculateAverage(purchases)) {
+            if (purchase > average) {
                 numberOfMonthsWithLowPurchases = numberOfMonthsWithLowPurchases + 1;
             }
         }
